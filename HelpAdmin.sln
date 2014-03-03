@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30219.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelpAdminData", "HelpAdminData\HelpAdminData.csproj", "{665760DC-1753-4988-AB6B-B1EB3E2FF56E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelpAdminWeb", "HelpAdminWeb\HelpAdminWeb.csproj", "{A37FEBC5-6D74-4D4A-8007-F23367260DCC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{665760DC-1753-4988-AB6B-B1EB3E2FF56E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{665760DC-1753-4988-AB6B-B1EB3E2FF56E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{665760DC-1753-4988-AB6B-B1EB3E2FF56E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{665760DC-1753-4988-AB6B-B1EB3E2FF56E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A37FEBC5-6D74-4D4A-8007-F23367260DCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A37FEBC5-6D74-4D4A-8007-F23367260DCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A37FEBC5-6D74-4D4A-8007-F23367260DCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A37FEBC5-6D74-4D4A-8007-F23367260DCC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
