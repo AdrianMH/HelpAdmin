@@ -37,7 +37,7 @@
           <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="NextMedialExam" Type="datetime" Nullable="false" />
+          <Property Name="NextMedicalExam" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="InventoryCategory">
           <Key>
@@ -231,7 +231,7 @@
           <Property Name="EmployeeID" Type="Int32" Nullable="false" />
           <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="NextMedialExam" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="NextMedicalExam" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -290,7 +290,7 @@
           <EntitySetMapping Name="Employee">
             <EntityTypeMapping TypeName="HelpAdminModel.Employee">
               <MappingFragment StoreEntitySet="Employee">
-                <ScalarProperty Name="NextMedialExam" ColumnName="NextMedialExam" />
+                <ScalarProperty Name="NextMedicalExam" ColumnName="NextMedicalExam" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
