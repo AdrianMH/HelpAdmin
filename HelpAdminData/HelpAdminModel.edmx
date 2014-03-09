@@ -35,8 +35,8 @@
             <PropertyRef Name="EmployeeID" />
           </Key>
           <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FirstName" Type="nchar" MaxLength="50" Nullable="false" />
-          <Property Name="LastName" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="NextMedialExam" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="InventoryCategory">
@@ -56,7 +56,7 @@
           <Property Name="SerialNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="SupplierID" Type="int" Nullable="false" />
           <Property Name="CategoryID" Type="int" Nullable="false" />
-          <Property Name="Code" Type="int" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <Association Name="FK_Contact_Client">
           <End Role="Client" Type="Self.Client" Multiplicity="1">
@@ -190,7 +190,7 @@
           <NavigationProperty Name="Client" Relationship="HelpAdminModel.FK_InventoryItem_Client" FromRole="InventoryItem" ToRole="Client" />
           <Property Name="CategoryID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="InventoryCategory" Relationship="HelpAdminModel.FK_InventoryItem_InventoryCategory" FromRole="InventoryItem" ToRole="InventoryCategory" />
-          <Property Name="Code" Type="Int32" Nullable="false" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_InventoryItem_Client">
           <End Type="HelpAdminModel.Client" Role="Client" Multiplicity="1" />
@@ -229,8 +229,8 @@
             <PropertyRef Name="EmployeeID" />
           </Key>
           <Property Name="EmployeeID" Type="Int32" Nullable="false" />
-          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
-          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="NextMedialExam" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
       </Schema>

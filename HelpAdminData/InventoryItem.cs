@@ -20,7 +20,7 @@ namespace HelpAdminData
         public string SerialNumber { get; set; }
         public int SupplierID { get; set; }
         public int CategoryID { get; set; }
-        public int Code { get; set; }
+        public string Code { get; set; }
     
         public virtual Client Client { get; set; }
         public virtual InventoryCategory InventoryCategory { get; set; }

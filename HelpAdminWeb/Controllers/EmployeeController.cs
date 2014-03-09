@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using HelpAdminData;
+using HelpAdminWeb.Models;
 
 namespace HelpAdminWeb.Controllers
 {
@@ -46,16 +47,23 @@ namespace HelpAdminWeb.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "EmployeeID,FirstName,LastName,NextMedialExam")] Employee employee)
+        public ActionResult Create([Bind(Include = "EmployeeID,FirstName,LastName,NextMedialExam")] EmployeeViewModel employeeViewModel)
         {
             if (ModelState.IsValid)
             {
+                Employee employee=new Employee();
+
+                employee.EmployeeID = employeeViewModel.EmployeeID;
+                employee.FirstName = employeeViewModel.FirstName;
+                employee.LastName = employeeViewModel.LastName;
+                employee.NextMedialExam = employeeViewModel.NextMedialExam;
+
                 db.Employee.Add(employee);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(employee);
+            return View(employeeViewModel);
         }
 
         // GET: Employee/Edit/5
@@ -70,7 +78,16 @@ namespace HelpAdminWeb.Controllers
             {
                 return HttpNotFound();
             }
-            return View(employee);
+            EmployeeViewModel employeeViewModel = new EmployeeViewModel()
+            {
+                EmployeeID = employee.EmployeeID,
+                FirstName = employee.FirstName,
+                LastName = employee.LastName,
+                NextMedialExam = employee.NextMedialExam
+
+            };
+
+           return View(employeeViewModel);
         }
 
         // POST: Employee/Edit/5
@@ -78,15 +95,22 @@ namespace HelpAdminWeb.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "EmployeeID,FirstName,LastName,NextMedialExam")] Employee employee)
+        public ActionResult Edit([Bind(Include = "EmployeeID,FirstName,LastName,NextMedialExam")] EmployeeViewModel employeeViewModel)
         {
             if (ModelState.IsValid)
             {
+                Employee employee = db.Employee.Find(employeeViewModel.EmployeeID);
+
+                employee.EmployeeID = employeeViewModel.EmployeeID;
+                employee.FirstName = employeeViewModel.FirstName;
+                employee.LastName = employeeViewModel.LastName;
+                employee.NextMedialExam = employeeViewModel.NextMedialExam;
+
                 db.Entry(employee).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(employee);
+            return View(employeeViewModel);
         }
 
         // GET: Employee/Delete/5

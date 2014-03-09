@@ -50,7 +50,7 @@ namespace HelpAdminWeb.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "InventoryItemID,Name,Details,SerialNumber,SupplierID,CategoryID")] InventoryItemViewModel inventoryItemViewModel)
+        public ActionResult Create([Bind(Include = "InventoryItemID,Name,Details,SerialNumber,SupplierID,CategoryID,Code")] InventoryItemViewModel inventoryItemViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -63,7 +63,7 @@ namespace HelpAdminWeb.Controllers
                 inventoryItem.SupplierID = inventoryItemViewModel.SupplierID;
                 inventoryItem.CategoryID = inventoryItemViewModel.CategoryID;
                 inventoryItem.Code = inventoryItemViewModel.Code;
-
+                
                 db.InventoryItem.Add(inventoryItem);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -96,7 +96,7 @@ namespace HelpAdminWeb.Controllers
                 SupplierID=inventoryItem.SupplierID,
                 CategoryID=inventoryItem.CategoryID,
                 Code=inventoryItem.Code
-            };
+           };
             ViewBag.SupplierID = new SelectList(db.Client, "ClientID", "Name", inventoryItemViewModel.SupplierID);
             ViewBag.CategoryID = new SelectList(db.InventoryCategory, "InventoryCategoryID", "Name", inventoryItemViewModel.CategoryID);
             return View(inventoryItemViewModel);

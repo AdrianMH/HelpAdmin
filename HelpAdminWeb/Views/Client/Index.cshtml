@@ -29,7 +29,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Details)
         </th>
-        <th></th>
+        <th>
+            @Html.DisplayNameFor(model =>model.IsContract)
+        </th>
     </tr>
 
 @foreach (var item in Model) {
@@ -48,6 +50,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Details)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsContract)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ClientID }) |

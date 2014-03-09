@@ -13,6 +13,6 @@ namespace HelpAdminWeb.Models
         public string SerialNumber { get; set; }
         public int SupplierID { get; set; }
         public int CategoryID { get; set; }
-        public int Code { get; set; }
+        public string Code { get; set; }
     }
 }
