@@ -12,17 +12,11 @@ namespace HelpAdminData
     using System;
     using System.Collections.Generic;
     
-    public partial class InventoryItem
+    public partial class Employee
     {
-        public int InventoryItemID { get; set; }
-        public string Name { get; set; }
-        public string Details { get; set; }
-        public string SerialNumber { get; set; }
-        public int SupplierID { get; set; }
-        public int CategoryID { get; set; }
-        public int Code { get; set; }
-    
-        public virtual Client Client { get; set; }
-        public virtual InventoryCategory InventoryCategory { get; set; }
+        public int EmployeeID { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public System.DateTime NextMedialExam { get; set; }
     }
 }

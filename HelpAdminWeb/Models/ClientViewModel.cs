@@ -17,5 +17,6 @@ namespace HelpAdminWeb.Models
         public string Telephone { get; set; }
         public string Email { get; set; }
         public string Details { get; set; }
+        public bool IsContract { get; set; }
     }
 }

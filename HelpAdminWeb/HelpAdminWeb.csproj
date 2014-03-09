@@ -161,6 +161,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ClientController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
+    <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InventoryItemController.cs" />
     <Compile Include="Global.asax.cs">
@@ -169,6 +170,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ClientViewModel.cs" />
     <Compile Include="Models\ContactViewModel.cs" />
+    <Compile Include="Models\EmployeeViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\InventoryItemViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -240,6 +242,11 @@
     <Content Include="Views\InventoryItem\Details.cshtml" />
     <Content Include="Views\InventoryItem\Edit.cshtml" />
     <Content Include="Views\InventoryItem\Index.cshtml" />
+    <Content Include="Views\Employee\Create.cshtml" />
+    <Content Include="Views\Employee\Delete.cshtml" />
+    <Content Include="Views\Employee\Details.cshtml" />
+    <Content Include="Views\Employee\Edit.cshtml" />
+    <Content Include="Views\Employee\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

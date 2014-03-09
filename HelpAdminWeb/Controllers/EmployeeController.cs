@@ -7,141 +7,110 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using HelpAdminData;
-using HelpAdminWeb.Models;
 
 namespace HelpAdminWeb.Controllers
 {
-    public class ClientController : Controller
+    public class EmployeeController : Controller
     {
         private HelpAdminEntities db = new HelpAdminEntities();
 
-        // GET: Client
+        // GET: Employee
         public ActionResult Index()
         {
-            return View(db.Client.ToList());
+            return View(db.Employee.ToList());
         }
 
-        // GET: Client/Details/5
+        // GET: Employee/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Client client = db.Client.Find(id);
-            if (client == null)
+            Employee employee = db.Employee.Find(id);
+            if (employee == null)
             {
                 return HttpNotFound();
             }
-            return View(client);
+            return View(employee);
         }
 
-        // GET: Client/Create
+        // GET: Employee/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Client/Create
+        // POST: Employee/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ClientID,Name,Url,Telephone,Email,Details")] ClientViewModel clientViewModel)
+        public ActionResult Create([Bind(Include = "EmployeeID,FirstName,LastName,NextMedialExam")] Employee employee)
         {
             if (ModelState.IsValid)
             {
-                Client client =new Client();
-
-                client.Name = clientViewModel.Name;
-                client.Url = clientViewModel.Url;
-                client.Telephone = clientViewModel.Telephone;
-                client.Email = clientViewModel.Email;
-                client.Details = clientViewModel.Details;
-                client.IsContract = clientViewModel.IsContract;
-
-                db.Client.Add(client);
+                db.Employee.Add(employee);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(clientViewModel);
+            return View(employee);
         }
 
-        // GET: Client/Edit/5
+        // GET: Employee/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Client client = db.Client.Find(id);
-            if (client == null)
+            Employee employee = db.Employee.Find(id);
+            if (employee == null)
             {
                 return HttpNotFound();
             }
-            ClientViewModel clientViewModel=new ClientViewModel()
-            {
-                ClientID=client.ClientID, 
-                Name = client.Name,
-                Url=client.Url,
-                Telephone=client.Telephone,
-                Email=client.Email,
-                Details=client.Details,
-                IsContract=client.IsContract
-            
-            };
-
-            return View(clientViewModel);
+            return View(employee);
         }
 
-        // POST: Client/Edit/5
+        // POST: Employee/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ClientID,Name,Url,Telephone,Email,Details")] ClientViewModel clientViewModel)
+        public ActionResult Edit([Bind(Include = "EmployeeID,FirstName,LastName,NextMedialExam")] Employee employee)
         {
             if (ModelState.IsValid)
             {
-                Client client = db.Client.Find(clientViewModel.ClientID);
-
-                client.Name = clientViewModel.Name;
-                client.Url = clientViewModel.Url;
-                client.Telephone = clientViewModel.Telephone;
-                client.Email = clientViewModel.Email;
-                client.Details = clientViewModel.Details;
-                client.IsContract = clientViewModel.IsContract;
-
-                db.Entry(client).State = EntityState.Modified;
+                db.Entry(employee).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(clientViewModel);
+            return View(employee);
         }
 
-        // GET: Client/Delete/5
+        // GET: Employee/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Client client = db.Client.Find(id);
-            if (client == null)
+            Employee employee = db.Employee.Find(id);
+            if (employee == null)
             {
                 return HttpNotFound();
             }
-            return View(client);
+            return View(employee);
         }
 
-        // POST: Client/Delete/5
+        // POST: Employee/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Client client = db.Client.Find(id);
-            db.Client.Remove(client);
+            Employee employee = db.Employee.Find(id);
+            db.Employee.Remove(employee);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

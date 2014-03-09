@@ -27,6 +27,7 @@ namespace HelpAdminData
         public string Telephone { get; set; }
         public string Email { get; set; }
         public string Details { get; set; }
+        public bool IsContract { get; set; }
     
         public virtual ICollection<Contact> Contact { get; set; }
         public virtual ICollection<InventoryItem> InventoryItem { get; set; }

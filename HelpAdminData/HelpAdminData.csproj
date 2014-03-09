@@ -54,6 +54,9 @@
     <Compile Include="Contact.cs">
       <DependentUpon>HelpAdminModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Employee.cs">
+      <DependentUpon>HelpAdminModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="HelpAdminModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

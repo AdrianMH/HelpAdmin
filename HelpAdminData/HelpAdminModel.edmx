@@ -16,6 +16,7 @@
           <Property Name="Telephone" Type="nvarchar" MaxLength="50" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" />
           <Property Name="Details" Type="nvarchar" MaxLength="500" />
+          <Property Name="IsContract" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Contact">
           <Key>
@@ -28,6 +29,15 @@
           <Property Name="Email" Type="nvarchar" MaxLength="50" />
           <Property Name="Telephone" Type="nvarchar" MaxLength="50" />
           <Property Name="Details" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="NextMedialExam" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="InventoryCategory">
           <Key>
@@ -46,6 +56,7 @@
           <Property Name="SerialNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="SupplierID" Type="int" Nullable="false" />
           <Property Name="CategoryID" Type="int" Nullable="false" />
+          <Property Name="Code" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_Contact_Client">
           <End Role="Client" Type="Self.Client" Multiplicity="1">
@@ -88,6 +99,7 @@
         <EntityContainer Name="HelpAdminModelStoreContainer">
           <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Contact" EntityType="Self.Contact" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InventoryCategory" EntityType="Self.InventoryCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InventoryItem" EntityType="Self.InventoryItem" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Contact_Client" Association="Self.FK_Contact_Client">
@@ -120,6 +132,7 @@
           <Property Name="Details" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Contact" Relationship="Self.FK_Contact_Client" FromRole="Client" ToRole="Contact" />
           <NavigationProperty Name="InventoryItem" Relationship="HelpAdminModel.FK_InventoryItem_Client" FromRole="Client" ToRole="InventoryItem" />
+          <Property Name="IsContract" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Contact">
           <Key>
@@ -163,6 +176,7 @@
             <End Role="InventoryCategory" EntitySet="InventoryCategory" />
             <End Role="InventoryItem" EntitySet="InventoryItem" />
           </AssociationSet>
+          <EntitySet Name="Employee" EntityType="HelpAdminModel.Employee" />
         </EntityContainer>
         <EntityType Name="InventoryItem">
           <Key>
@@ -176,6 +190,7 @@
           <NavigationProperty Name="Client" Relationship="HelpAdminModel.FK_InventoryItem_Client" FromRole="InventoryItem" ToRole="Client" />
           <Property Name="CategoryID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="InventoryCategory" Relationship="HelpAdminModel.FK_InventoryItem_InventoryCategory" FromRole="InventoryItem" ToRole="InventoryCategory" />
+          <Property Name="Code" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="FK_InventoryItem_Client">
           <End Type="HelpAdminModel.Client" Role="Client" Multiplicity="1" />
@@ -209,6 +224,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="NextMedialExam" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -218,6 +242,7 @@
           <EntitySetMapping Name="Client">
             <EntityTypeMapping TypeName="HelpAdminModel.Client">
               <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="IsContract" ColumnName="IsContract" />
                 <ScalarProperty Name="ClientID" ColumnName="ClientID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Url" ColumnName="Url" />
@@ -244,6 +269,7 @@
           <EntitySetMapping Name="InventoryItem">
             <EntityTypeMapping TypeName="HelpAdminModel.InventoryItem">
               <MappingFragment StoreEntitySet="InventoryItem">
+                <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
                 <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
                 <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
@@ -258,6 +284,16 @@
               <MappingFragment StoreEntitySet="InventoryCategory">
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="InventoryCategoryID" ColumnName="InventoryCategoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employee">
+            <EntityTypeMapping TypeName="HelpAdminModel.Employee">
+              <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="NextMedialExam" ColumnName="NextMedialExam" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

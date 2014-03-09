@@ -29,5 +29,6 @@ namespace HelpAdminData
         public virtual DbSet<Contact> Contact { get; set; }
         public virtual DbSet<InventoryItem> InventoryItem { get; set; }
         public virtual DbSet<InventoryCategory> InventoryCategory { get; set; }
+        public virtual DbSet<Employee> Employee { get; set; }
     }
 }

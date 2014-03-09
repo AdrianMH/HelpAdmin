@@ -62,6 +62,7 @@ namespace HelpAdminWeb.Controllers
                 inventoryItem.SerialNumber = inventoryItemViewModel.SerialNumber;
                 inventoryItem.SupplierID = inventoryItemViewModel.SupplierID;
                 inventoryItem.CategoryID = inventoryItemViewModel.CategoryID;
+                inventoryItem.Code = inventoryItemViewModel.Code;
 
                 db.InventoryItem.Add(inventoryItem);
                 db.SaveChanges();
@@ -93,7 +94,8 @@ namespace HelpAdminWeb.Controllers
                 Details=inventoryItem.Details,
                 SerialNumber=inventoryItem.SerialNumber,
                 SupplierID=inventoryItem.SupplierID,
-                CategoryID=inventoryItem.CategoryID
+                CategoryID=inventoryItem.CategoryID,
+                Code=inventoryItem.Code
             };
             ViewBag.SupplierID = new SelectList(db.Client, "ClientID", "Name", inventoryItemViewModel.SupplierID);
             ViewBag.CategoryID = new SelectList(db.InventoryCategory, "InventoryCategoryID", "Name", inventoryItemViewModel.CategoryID);
@@ -117,7 +119,8 @@ namespace HelpAdminWeb.Controllers
                 inventoryItem.SerialNumber = inventoryItemViewModel.SerialNumber;
                 inventoryItem.SupplierID = inventoryItemViewModel.SupplierID;
                 inventoryItem.CategoryID = inventoryItemViewModel.CategoryID;
-                
+                inventoryItem.Code = inventoryItemViewModel.Code;
+
                 db.Entry(inventoryItem).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
