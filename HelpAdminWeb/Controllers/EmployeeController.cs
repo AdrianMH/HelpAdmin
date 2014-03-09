@@ -56,7 +56,7 @@ namespace HelpAdminWeb.Controllers
                 employee.EmployeeID = employeeViewModel.EmployeeID;
                 employee.FirstName = employeeViewModel.FirstName;
                 employee.LastName = employeeViewModel.LastName;
-                employee.NextMedialExam = employeeViewModel.NextMedialExam;
+                employee.NextMedicalExam = employeeViewModel.NextMedicalExam;
 
                 db.Employee.Add(employee);
                 db.SaveChanges();
@@ -83,7 +83,7 @@ namespace HelpAdminWeb.Controllers
                 EmployeeID = employee.EmployeeID,
                 FirstName = employee.FirstName,
                 LastName = employee.LastName,
-                NextMedialExam = employee.NextMedialExam
+                NextMedicalExam = employee.NextMedicalExam
 
             };
 
@@ -104,7 +104,7 @@ namespace HelpAdminWeb.Controllers
                 employee.EmployeeID = employeeViewModel.EmployeeID;
                 employee.FirstName = employeeViewModel.FirstName;
                 employee.LastName = employeeViewModel.LastName;
-                employee.NextMedialExam = employeeViewModel.NextMedialExam;
+                employee.NextMedicalExam = employeeViewModel.NextMedicalExam;
 
                 db.Entry(employee).State = EntityState.Modified;
                 db.SaveChanges();
