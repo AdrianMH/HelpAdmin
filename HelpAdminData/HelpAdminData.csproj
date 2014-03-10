@@ -78,6 +78,9 @@
     <Compile Include="InventoryItem.cs">
       <DependentUpon>HelpAdminModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ItemGuarantee.cs">
+      <DependentUpon>HelpAdminModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

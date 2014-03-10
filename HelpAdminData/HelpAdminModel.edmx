@@ -57,6 +57,15 @@
           <Property Name="SupplierID" Type="int" Nullable="false" />
           <Property Name="CategoryID" Type="int" Nullable="false" />
           <Property Name="Code" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="PurchaseDate" Type="datetime" Nullable="false" />
+          <Property Name="GuaranteeID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ItemGuarantee">
+          <Key>
+            <PropertyRef Name="ItemGuaranteeID" />
+          </Key>
+          <Property Name="ItemGuaranteeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <Association Name="FK_Contact_Client">
           <End Role="Client" Type="Self.Client" Multiplicity="1">
@@ -96,12 +105,25 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_InventoryItem_ItemGuarantee">
+          <End Role="ItemGuarantee" Type="Self.ItemGuarantee" Multiplicity="1" />
+          <End Role="InventoryItem" Type="Self.InventoryItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemGuarantee">
+              <PropertyRef Name="ItemGuaranteeID" />
+            </Principal>
+            <Dependent Role="InventoryItem">
+              <PropertyRef Name="GuaranteeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="HelpAdminModelStoreContainer">
           <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Contact" EntityType="Self.Contact" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InventoryCategory" EntityType="Self.InventoryCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InventoryItem" EntityType="Self.InventoryItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemGuarantee" EntityType="Self.ItemGuarantee" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Contact_Client" Association="Self.FK_Contact_Client">
             <End Role="Client" EntitySet="Client" />
             <End Role="Contact" EntitySet="Contact" />
@@ -112,6 +134,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_InventoryItem_InventoryCategory" Association="Self.FK_InventoryItem_InventoryCategory">
             <End Role="InventoryCategory" EntitySet="InventoryCategory" />
+            <End Role="InventoryItem" EntitySet="InventoryItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InventoryItem_ItemGuarantee" Association="Self.FK_InventoryItem_ItemGuarantee">
+            <End Role="ItemGuarantee" EntitySet="ItemGuarantee" />
             <End Role="InventoryItem" EntitySet="InventoryItem" />
           </AssociationSet>
         </EntityContainer>
@@ -177,7 +203,12 @@
             <End Role="InventoryItem" EntitySet="InventoryItem" />
           </AssociationSet>
           <EntitySet Name="Employee" EntityType="HelpAdminModel.Employee" />
-        </EntityContainer>
+          <EntitySet Name="ItemGuarantee" EntityType="HelpAdminModel.ItemGuarantee" />
+          <AssociationSet Name="FK_InventoryItem_ItemGuarantee" Association="HelpAdminModel.FK_InventoryItem_ItemGuarantee">
+            <End Role="ItemGuarantee" EntitySet="ItemGuarantee" />
+            <End Role="InventoryItem" EntitySet="InventoryItem" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="InventoryItem">
           <Key>
             <PropertyRef Name="InventoryItemID" />
@@ -191,6 +222,9 @@
           <Property Name="CategoryID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="InventoryCategory" Relationship="HelpAdminModel.FK_InventoryItem_InventoryCategory" FromRole="InventoryItem" ToRole="InventoryCategory" />
           <Property Name="Code" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="PurchaseDate" Type="DateTime" Precision="3" Nullable="false" />
+          <Property Name="GuaranteeID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ItemGuarantee" Relationship="HelpAdminModel.FK_InventoryItem_ItemGuarantee" FromRole="InventoryItem" ToRole="ItemGuarantee" />
         </EntityType>
         <Association Name="FK_InventoryItem_Client">
           <End Type="HelpAdminModel.Client" Role="Client" Multiplicity="1" />
@@ -233,7 +267,27 @@
           <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="NextMedicalExam" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
-      </Schema>
+        <EntityType Name="ItemGuarantee">
+          <Key>
+            <PropertyRef Name="ItemGuaranteeID" />
+          </Key>
+          <Property Name="ItemGuaranteeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="InventoryItem" Relationship="HelpAdminModel.FK_InventoryItem_ItemGuarantee" FromRole="ItemGuarantee" ToRole="InventoryItem" />
+        </EntityType>
+        <Association Name="FK_InventoryItem_ItemGuarantee">
+          <End Type="HelpAdminModel.ItemGuarantee" Role="ItemGuarantee" Multiplicity="1" />
+          <End Type="HelpAdminModel.InventoryItem" Role="InventoryItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemGuarantee">
+              <PropertyRef Name="ItemGuaranteeID" />
+            </Principal>
+            <Dependent Role="InventoryItem">
+              <PropertyRef Name="GuaranteeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -269,6 +323,8 @@
           <EntitySetMapping Name="InventoryItem">
             <EntityTypeMapping TypeName="HelpAdminModel.InventoryItem">
               <MappingFragment StoreEntitySet="InventoryItem">
+                <ScalarProperty Name="GuaranteeID" ColumnName="GuaranteeID" />
+                <ScalarProperty Name="PurchaseDate" ColumnName="PurchaseDate" />
                 <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
                 <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
@@ -294,6 +350,14 @@
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemGuarantee">
+            <EntityTypeMapping TypeName="HelpAdminModel.ItemGuarantee">
+              <MappingFragment StoreEntitySet="ItemGuarantee">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ItemGuaranteeID" ColumnName="ItemGuaranteeID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

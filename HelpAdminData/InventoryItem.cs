@@ -21,8 +21,11 @@ namespace HelpAdminData
         public int SupplierID { get; set; }
         public int CategoryID { get; set; }
         public string Code { get; set; }
+        public System.DateTime PurchaseDate { get; set; }
+        public int GuaranteeID { get; set; }
     
         public virtual Client Client { get; set; }
         public virtual InventoryCategory InventoryCategory { get; set; }
+        public virtual ItemGuarantee ItemGuarantee { get; set; }
     }
 }

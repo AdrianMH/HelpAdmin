@@ -42,6 +42,8 @@ namespace HelpAdminWeb.Controllers
         {
             ViewBag.SupplierID = new SelectList(db.Client, "ClientID", "Name");
             ViewBag.CategoryID = new SelectList(db.InventoryCategory, "InventoryCategoryID", "Name");
+            ViewBag.GuaranteeID = new SelectList(db.ItemGuarantee, "ItemGuaranteeID", "Name");
+            
             return View();
         }
 
@@ -50,11 +52,11 @@ namespace HelpAdminWeb.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "InventoryItemID,Name,Details,SerialNumber,SupplierID,CategoryID,Code")] InventoryItemViewModel inventoryItemViewModel)
+        public ActionResult Create([Bind(Include = "InventoryItemID,Name,Details,SerialNumber,SupplierID,CategoryID,Code,PurchaseDate,GuaranteeID")] InventoryItemViewModel inventoryItemViewModel)
         {
             if (ModelState.IsValid)
             {
-                InventoryItem inventoryItem=new InventoryItem();
+                InventoryItem inventoryItem = new InventoryItem();
 
                 inventoryItem.InventoryItemID = inventoryItemViewModel.InventoryItemID;
                 inventoryItem.Name = inventoryItemViewModel.Name;
@@ -63,6 +65,8 @@ namespace HelpAdminWeb.Controllers
                 inventoryItem.SupplierID = inventoryItemViewModel.SupplierID;
                 inventoryItem.CategoryID = inventoryItemViewModel.CategoryID;
                 inventoryItem.Code = inventoryItemViewModel.Code;
+                inventoryItem.PurchaseDate = inventoryItemViewModel.PurchaseDate;
+                inventoryItem.GuaranteeID = inventoryItemViewModel.GuaranteeID;
                 
                 db.InventoryItem.Add(inventoryItem);
                 db.SaveChanges();
@@ -71,6 +75,8 @@ namespace HelpAdminWeb.Controllers
 
             ViewBag.SupplierID = new SelectList(db.Client, "ClientID", "Name", inventoryItemViewModel.SupplierID);
             ViewBag.CategoryID = new SelectList(db.InventoryCategory, "InventoryCategoryID", "Name", inventoryItemViewModel.CategoryID);
+            ViewBag.GuaranteeID = new SelectList(db.ItemGuarantee, "ItemGuaranteeID", "Name", inventoryItemViewModel.GuaranteeID);
+            
             return View(inventoryItemViewModel);
         }
 
@@ -95,10 +101,14 @@ namespace HelpAdminWeb.Controllers
                 SerialNumber=inventoryItem.SerialNumber,
                 SupplierID=inventoryItem.SupplierID,
                 CategoryID=inventoryItem.CategoryID,
-                Code=inventoryItem.Code
+                Code=inventoryItem.Code,
+                PurchaseDate=inventoryItem.PurchaseDate,
+                GuaranteeID=inventoryItem.GuaranteeID
+
            };
             ViewBag.SupplierID = new SelectList(db.Client, "ClientID", "Name", inventoryItemViewModel.SupplierID);
             ViewBag.CategoryID = new SelectList(db.InventoryCategory, "InventoryCategoryID", "Name", inventoryItemViewModel.CategoryID);
+            ViewBag.GuaranteeID = new SelectList(db.ItemGuarantee, "ItemGuaranteeID", "Name", inventoryItemViewModel.GuaranteeID);
             return View(inventoryItemViewModel);
         }
 
@@ -107,7 +117,7 @@ namespace HelpAdminWeb.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "InventoryItemID,Name,Details,SerialNumber,SupplierID,CategoryID")] InventoryItemViewModel inventoryItemViewModel)
+        public ActionResult Edit([Bind(Include = "InventoryItemID,Name,Details,SerialNumber,SupplierID,CategoryID,PurchaseDate,GuaranteeID")] InventoryItemViewModel inventoryItemViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -120,6 +130,8 @@ namespace HelpAdminWeb.Controllers
                 inventoryItem.SupplierID = inventoryItemViewModel.SupplierID;
                 inventoryItem.CategoryID = inventoryItemViewModel.CategoryID;
                 inventoryItem.Code = inventoryItemViewModel.Code;
+                inventoryItem.PurchaseDate = inventoryItemViewModel.PurchaseDate;
+                inventoryItem.GuaranteeID = inventoryItemViewModel.GuaranteeID;
 
                 db.Entry(inventoryItem).State = EntityState.Modified;
                 db.SaveChanges();
@@ -127,6 +139,8 @@ namespace HelpAdminWeb.Controllers
             }
             ViewBag.SupplierID = new SelectList(db.Client, "ClientID", "Name", inventoryItemViewModel.SupplierID);
             ViewBag.CategoryID = new SelectList(db.InventoryCategory, "InventoryCategoryID", "Name", inventoryItemViewModel.CategoryID);
+            ViewBag.GuaranteeID = new SelectList(db.ItemGuarantee, "ItemGuaranteeID", "Name",inventoryItemViewModel.GuaranteeID);
+            
             return View(inventoryItemViewModel);
         }
 
