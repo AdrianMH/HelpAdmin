@@ -18,6 +18,7 @@ namespace HelpAdminData
         {
             this.Contact = new HashSet<Contact>();
             this.InventoryItem = new HashSet<InventoryItem>();
+            this.ClientContract = new HashSet<ClientContract>();
         }
     
         public int ClientID { get; set; }
@@ -31,5 +32,6 @@ namespace HelpAdminData
     
         public virtual ICollection<Contact> Contact { get; set; }
         public virtual ICollection<InventoryItem> InventoryItem { get; set; }
+        public virtual ICollection<ClientContract> ClientContract { get; set; }
     }
 }

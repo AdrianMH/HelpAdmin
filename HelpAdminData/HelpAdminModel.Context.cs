@@ -31,5 +31,8 @@ namespace HelpAdminData
         public virtual DbSet<InventoryCategory> InventoryCategory { get; set; }
         public virtual DbSet<Employee> Employee { get; set; }
         public virtual DbSet<ItemGuarantee> ItemGuarantee { get; set; }
+        public virtual DbSet<ClientContract> ClientContract { get; set; }
+        public virtual DbSet<Project> Project { get; set; }
+        public virtual DbSet<ProjectInformation> ProjectInformation { get; set; }
     }
 }

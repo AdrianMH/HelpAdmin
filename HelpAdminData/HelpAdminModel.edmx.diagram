@@ -9,12 +9,20 @@
         <EntityTypeShape EntityType="HelpAdminModel.Contact" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <AssociationConnector Association="HelpAdminModel.FK_Contact_Client" ManuallyRouted="false" />
         <EntityTypeShape EntityType="HelpAdminModel.InventoryItem" Width="1.5" PointX="0.75" PointY="5" />
-        <AssociationConnector Association="HelpAdminModel.FK_InventoryItem_Client" />
+        <AssociationConnector Association="HelpAdminModel.FK_InventoryItem_Client" ManuallyRouted="true" >
+          <ConnectorPoint PointX="1.5" PointY="4.326396484375" />
+          <ConnectorPoint PointX="1.5" PointY="5" />
+        </AssociationConnector>
         <EntityTypeShape EntityType="HelpAdminModel.InventoryCategory" Width="1.5" PointX="3.375" PointY="4.875" />
         <AssociationConnector Association="HelpAdminModel.FK_InventoryItem_InventoryCategory" />
-        <EntityTypeShape EntityType="HelpAdminModel.Employee" Width="1.5" PointX="5.375" PointY="1" />
-        <EntityTypeShape EntityType="HelpAdminModel.ItemGuarantee" Width="1.5" PointX="5.375" PointY="3.875" />
+        <EntityTypeShape EntityType="HelpAdminModel.Employee" Width="1.5" PointX="7" PointY="1" />
+        <EntityTypeShape EntityType="HelpAdminModel.ItemGuarantee" Width="1.5" PointX="5.375" PointY="4.875" />
         <AssociationConnector Association="HelpAdminModel.FK_InventoryItem_ItemGuarantee" />
+        <EntityTypeShape EntityType="HelpAdminModel.ClientContract" Width="1.5" PointX="5" PointY="1" />
+        <EntityTypeShape EntityType="HelpAdminModel.Project" Width="1.5" PointX="7.375" PointY="4" />
+        <EntityTypeShape EntityType="HelpAdminModel.ProjectInformation" Width="1.5" PointX="9.625" PointY="3.875" />
+        <AssociationConnector Association="HelpAdminModel.FK_ClientContract_Client" />
+        <AssociationConnector Association="HelpAdminModel.FK_ProjectInformation_Project" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

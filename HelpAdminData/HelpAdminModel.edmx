@@ -18,6 +18,17 @@
           <Property Name="Details" Type="nvarchar" MaxLength="500" />
           <Property Name="IsContract" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="ClientContract">
+          <Key>
+            <PropertyRef Name="ClientContractID" />
+          </Key>
+          <Property Name="ClientContractID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientID" Type="int" Nullable="false" />
+          <Property Name="Month" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Year" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Ammount" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="AdditionalAmmount" Type="numeric" Precision="10" Scale="2" />
+        </EntityType>
         <EntityType Name="Contact">
           <Key>
             <PropertyRef Name="ContactID" />
@@ -67,6 +78,33 @@
           <Property Name="ItemGuaranteeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+          </Key>
+          <Property Name="ProjectID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProjectInformation">
+          <Key>
+            <PropertyRef Name="ProjectInformationID" />
+          </Key>
+          <Property Name="ProjectInformationID" Type="int" Nullable="false" />
+          <Property Name="ProjectID" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_ClientContract_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="ClientContract" Type="Self.ClientContract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientID" />
+            </Principal>
+            <Dependent Role="ClientContract">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Contact_Client">
           <End Role="Client" Type="Self.Client" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -117,13 +155,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ProjectInformation_Project">
+          <End Role="Project" Type="Self.Project" Multiplicity="1" />
+          <End Role="ProjectInformation" Type="Self.ProjectInformation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="ProjectInformation">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="HelpAdminModelStoreContainer">
           <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ClientContract" EntityType="Self.ClientContract" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Contact" EntityType="Self.Contact" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InventoryCategory" EntityType="Self.InventoryCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InventoryItem" EntityType="Self.InventoryItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ItemGuarantee" EntityType="Self.ItemGuarantee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjectInformation" EntityType="Self.ProjectInformation" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ClientContract_Client" Association="Self.FK_ClientContract_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="ClientContract" EntitySet="ClientContract" />
+          </AssociationSet>
           <AssociationSet Name="FK_Contact_Client" Association="Self.FK_Contact_Client">
             <End Role="Client" EntitySet="Client" />
             <End Role="Contact" EntitySet="Contact" />
@@ -139,6 +196,10 @@
           <AssociationSet Name="FK_InventoryItem_ItemGuarantee" Association="Self.FK_InventoryItem_ItemGuarantee">
             <End Role="ItemGuarantee" EntitySet="ItemGuarantee" />
             <End Role="InventoryItem" EntitySet="InventoryItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectInformation_Project" Association="Self.FK_ProjectInformation_Project">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="ProjectInformation" EntitySet="ProjectInformation" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -159,6 +220,7 @@
           <NavigationProperty Name="Contact" Relationship="Self.FK_Contact_Client" FromRole="Client" ToRole="Contact" />
           <NavigationProperty Name="InventoryItem" Relationship="HelpAdminModel.FK_InventoryItem_Client" FromRole="Client" ToRole="InventoryItem" />
           <Property Name="IsContract" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="ClientContract" Relationship="HelpAdminModel.FK_ClientContract_Client" FromRole="Client" ToRole="ClientContract" />
         </EntityType>
         <EntityType Name="Contact">
           <Key>
@@ -207,6 +269,17 @@
           <AssociationSet Name="FK_InventoryItem_ItemGuarantee" Association="HelpAdminModel.FK_InventoryItem_ItemGuarantee">
             <End Role="ItemGuarantee" EntitySet="ItemGuarantee" />
             <End Role="InventoryItem" EntitySet="InventoryItem" />
+          </AssociationSet>
+          <EntitySet Name="ClientContract" EntityType="HelpAdminModel.ClientContract" />
+          <EntitySet Name="Project" EntityType="HelpAdminModel.Project" />
+          <EntitySet Name="ProjectInformation" EntityType="HelpAdminModel.ProjectInformation" />
+          <AssociationSet Name="FK_ClientContract_Client" Association="HelpAdminModel.FK_ClientContract_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="ClientContract" EntitySet="ClientContract" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectInformation_Project" Association="HelpAdminModel.FK_ProjectInformation_Project">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="ProjectInformation" EntitySet="ProjectInformation" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="InventoryItem">
@@ -287,6 +360,59 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ClientContract">
+          <Key>
+            <PropertyRef Name="ClientContractID" />
+          </Key>
+          <Property Name="ClientContractID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientID" Type="Int32" Nullable="false" />
+          <Property Name="Month" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Year" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="AdditionalAmmount" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="Client" Relationship="HelpAdminModel.FK_ClientContract_Client" FromRole="ClientContract" ToRole="Client" />
+          <Property Name="Ammount" Type="Decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+          </Key>
+          <Property Name="ProjectID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ProjectInformation" Relationship="HelpAdminModel.FK_ProjectInformation_Project" FromRole="Project" ToRole="ProjectInformation" />
+        </EntityType>
+        <EntityType Name="ProjectInformation">
+          <Key>
+            <PropertyRef Name="ProjectInformationID" />
+          </Key>
+          <Property Name="ProjectInformationID" Type="Int32" Nullable="false" />
+          <Property Name="ProjectID" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Project" Relationship="HelpAdminModel.FK_ProjectInformation_Project" FromRole="ProjectInformation" ToRole="Project" />
+        </EntityType>
+        <Association Name="FK_ClientContract_Client">
+          <End Type="HelpAdminModel.Client" Role="Client" Multiplicity="1" />
+          <End Type="HelpAdminModel.ClientContract" Role="ClientContract" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientID" />
+            </Principal>
+            <Dependent Role="ClientContract">
+              <PropertyRef Name="ClientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectInformation_Project">
+          <End Type="HelpAdminModel.Project" Role="Project" Multiplicity="1" />
+          <End Type="HelpAdminModel.ProjectInformation" Role="ProjectInformation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="ProjectInformation">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -358,6 +484,35 @@
               <MappingFragment StoreEntitySet="ItemGuarantee">
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ItemGuaranteeID" ColumnName="ItemGuaranteeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ClientContract">
+            <EntityTypeMapping TypeName="HelpAdminModel.ClientContract">
+              <MappingFragment StoreEntitySet="ClientContract">
+                <ScalarProperty Name="Ammount" ColumnName="Ammount" />
+                <ScalarProperty Name="AdditionalAmmount" ColumnName="AdditionalAmmount" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+                <ScalarProperty Name="ClientContractID" ColumnName="ClientContractID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Project">
+            <EntityTypeMapping TypeName="HelpAdminModel.Project">
+              <MappingFragment StoreEntitySet="Project">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectInformation">
+            <EntityTypeMapping TypeName="HelpAdminModel.ProjectInformation">
+              <MappingFragment StoreEntitySet="ProjectInformation">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+                <ScalarProperty Name="ProjectInformationID" ColumnName="ProjectInformationID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

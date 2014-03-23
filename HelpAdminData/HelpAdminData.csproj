@@ -51,6 +51,9 @@
     <Compile Include="Client.cs">
       <DependentUpon>HelpAdminModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ClientContract.cs">
+      <DependentUpon>HelpAdminModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Contact.cs">
       <DependentUpon>HelpAdminModel.tt</DependentUpon>
     </Compile>
@@ -79,6 +82,12 @@
       <DependentUpon>HelpAdminModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ItemGuarantee.cs">
+      <DependentUpon>HelpAdminModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Project.cs">
+      <DependentUpon>HelpAdminModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectInformation.cs">
       <DependentUpon>HelpAdminModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
