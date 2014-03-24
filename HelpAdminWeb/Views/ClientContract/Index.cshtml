@@ -24,7 +24,7 @@
             @Html.DisplayNameFor(model => model.AdditionalAmmount)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ClientID)
+            Client
         </th>
         <th></th>
     </tr>
@@ -44,7 +44,7 @@
             @Html.DisplayFor(modelItem => item.AdditionalAmmount)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ClientID)
+            @Html.DisplayFor(modelItem => item.Client.Name)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.ClientContractID }) |

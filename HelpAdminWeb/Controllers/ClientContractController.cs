@@ -40,6 +40,8 @@ namespace HelpAdminWeb.Controllers
         // GET: ClientContract/Create
         public ActionResult Create()
         {
+
+            ViewBag.ClientID = new SelectList(db.Client, "ClientID", "Name");
             return View();
         }
 
@@ -65,7 +67,7 @@ namespace HelpAdminWeb.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            ViewBag.ClientID = new SelectList(db.Client, "ClientID", "Name", clientContractViewModel.ClientID);
             return View(clientContractViewModel);
         }
 
@@ -90,6 +92,7 @@ namespace HelpAdminWeb.Controllers
                 Ammount=clientContract.Ammount,
                 AdditionalAmmount=clientContract.AdditionalAmmount,
             };
+            ViewBag.ClientID = new SelectList(db.Client, "ClientID", "Name", clientContract.ClientID);
             return View(clientContractViewModel);
         }
 
@@ -115,6 +118,7 @@ namespace HelpAdminWeb.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.ClientID = new SelectList(db.Client, "ClientID", "Name", clientContractViewModel.ClientID);
             return View(clientContractViewModel);
         }
 
