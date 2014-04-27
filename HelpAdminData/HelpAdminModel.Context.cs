@@ -29,10 +29,10 @@ namespace HelpAdminData
         public virtual DbSet<Contact> Contact { get; set; }
         public virtual DbSet<InventoryItem> InventoryItem { get; set; }
         public virtual DbSet<InventoryCategory> InventoryCategory { get; set; }
-        public virtual DbSet<Employee> Employee { get; set; }
         public virtual DbSet<ItemGuarantee> ItemGuarantee { get; set; }
         public virtual DbSet<ClientContract> ClientContract { get; set; }
         public virtual DbSet<Project> Project { get; set; }
         public virtual DbSet<ProjectInformation> ProjectInformation { get; set; }
+        public virtual DbSet<Employee> Employee { get; set; }
     }
 }

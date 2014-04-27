@@ -11,5 +11,8 @@ namespace HelpAdminWeb.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public DateTime NextMedicalExam { get; set; }
+        public string PhoneNumber { get; set; }
+        public DateTime BirthDate { get; set; }
+        
     }
 }

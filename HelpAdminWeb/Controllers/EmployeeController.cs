@@ -47,7 +47,7 @@ namespace HelpAdminWeb.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "EmployeeID,FirstName,LastName,NextMedialExam")] EmployeeViewModel employeeViewModel)
+        public ActionResult Create([Bind(Include = "EmployeeID,FirstName,LastName,NextMedialExam,PhoneNumber,BirthDate")] EmployeeViewModel employeeViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -57,6 +57,9 @@ namespace HelpAdminWeb.Controllers
                 employee.FirstName = employeeViewModel.FirstName;
                 employee.LastName = employeeViewModel.LastName;
                 employee.NextMedicalExam = employeeViewModel.NextMedicalExam;
+                employee.PhoneNumber = employeeViewModel.PhoneNumber;
+                employee.BirthDate = employeeViewModel.BirthDate;
+                
 
                 db.Employee.Add(employee);
                 db.SaveChanges();
@@ -83,7 +86,10 @@ namespace HelpAdminWeb.Controllers
                 EmployeeID = employee.EmployeeID,
                 FirstName = employee.FirstName,
                 LastName = employee.LastName,
-                NextMedicalExam = employee.NextMedicalExam
+                NextMedicalExam = employee.NextMedicalExam,
+                PhoneNumber=employee.PhoneNumber,
+                BirthDate=employee.BirthDate
+                
 
             };
 
@@ -95,7 +101,7 @@ namespace HelpAdminWeb.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "EmployeeID,FirstName,LastName,NextMedialExam")] EmployeeViewModel employeeViewModel)
+        public ActionResult Edit([Bind(Include = "EmployeeID,FirstName,LastName,NextMedialExam,PhoneNumber,BirthDate")] EmployeeViewModel employeeViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -105,6 +111,9 @@ namespace HelpAdminWeb.Controllers
                 employee.FirstName = employeeViewModel.FirstName;
                 employee.LastName = employeeViewModel.LastName;
                 employee.NextMedicalExam = employeeViewModel.NextMedicalExam;
+                employee.PhoneNumber = employeeViewModel.PhoneNumber;
+                employee.BirthDate = employeeViewModel.BirthDate;
+                
 
                 db.Entry(employee).State = EntityState.Modified;
                 db.SaveChanges();

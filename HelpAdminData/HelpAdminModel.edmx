@@ -26,8 +26,8 @@
           <Property Name="ClientID" Type="int" Nullable="false" />
           <Property Name="Month" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="Year" Type="nvarchar" MaxLength="10" Nullable="false" />
-          <Property Name="Ammount" Type="numeric" Precision="10" Scale="2" />
-          <Property Name="AdditionalAmmount" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="AdditionalAmmount" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Ammount" Type="decimal" Precision="10" Scale="2" />
         </EntityType>
         <EntityType Name="Contact">
           <Key>
@@ -48,20 +48,22 @@
           <Property Name="EmployeeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="NextMedicalExam" Type="datetime" Nullable="false" />
+          <Property Name="NextMedicalExam" Type="datetime" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="20" />
+          <Property Name="BirthDate" Type="date" />
         </EntityType>
         <EntityType Name="InventoryCategory">
           <Key>
             <PropertyRef Name="InventoryCategoryID" />
           </Key>
-          <Property Name="InventoryCategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InventoryCategoryID" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="InventoryItem">
           <Key>
             <PropertyRef Name="InventoryItemID" />
           </Key>
-          <Property Name="InventoryItemID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InventoryItemID" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Details" Type="nvarchar" MaxLength="50" />
           <Property Name="SerialNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -106,9 +108,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Contact_Client">
-          <End Role="Client" Type="Self.Client" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
           <End Role="Contact" Type="Self.Contact" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Client">
@@ -264,7 +264,6 @@
             <End Role="InventoryCategory" EntitySet="InventoryCategory" />
             <End Role="InventoryItem" EntitySet="InventoryItem" />
           </AssociationSet>
-          <EntitySet Name="Employee" EntityType="HelpAdminModel.Employee" />
           <EntitySet Name="ItemGuarantee" EntityType="HelpAdminModel.ItemGuarantee" />
           <AssociationSet Name="FK_InventoryItem_ItemGuarantee" Association="HelpAdminModel.FK_InventoryItem_ItemGuarantee">
             <End Role="ItemGuarantee" EntitySet="ItemGuarantee" />
@@ -281,6 +280,7 @@
             <End Role="Project" EntitySet="Project" />
             <End Role="ProjectInformation" EntitySet="ProjectInformation" />
           </AssociationSet>
+          <EntitySet Name="Employee" EntityType="HelpAdminModel.Employee" />
           </EntityContainer>
         <EntityType Name="InventoryItem">
           <Key>
@@ -331,15 +331,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Employee">
-          <Key>
-            <PropertyRef Name="EmployeeID" />
-          </Key>
-          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
-          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="NextMedicalExam" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
         <EntityType Name="ItemGuarantee">
           <Key>
             <PropertyRef Name="ItemGuaranteeID" />
@@ -413,65 +404,115 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Employee">
+          <Key>
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NextMedicalExam" Type="DateTime" Precision="3" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="BirthDate" Type="DateTime" Precision="0" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="HelpAdminModelStoreContainer" CdmEntityContainer="HelpAdminEntities">
-          <EntitySetMapping Name="Client">
-            <EntityTypeMapping TypeName="HelpAdminModel.Client">
-              <MappingFragment StoreEntitySet="Client">
-                <ScalarProperty Name="IsContract" ColumnName="IsContract" />
-                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Url" ColumnName="Url" />
-                <ScalarProperty Name="ContactID" ColumnName="ContactID" />
-                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Details" ColumnName="Details" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Contact">
-            <EntityTypeMapping TypeName="HelpAdminModel.Contact">
-              <MappingFragment StoreEntitySet="Contact">
-                <ScalarProperty Name="ContactID" ColumnName="ContactID" />
-                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
-                <ScalarProperty Name="Surname" ColumnName="Surname" />
-                <ScalarProperty Name="Forename" ColumnName="Forename" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
-                <ScalarProperty Name="Details" ColumnName="Details" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="InventoryItem">
-            <EntityTypeMapping TypeName="HelpAdminModel.InventoryItem">
-              <MappingFragment StoreEntitySet="InventoryItem">
-                <ScalarProperty Name="GuaranteeID" ColumnName="GuaranteeID" />
-                <ScalarProperty Name="PurchaseDate" ColumnName="PurchaseDate" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
-                <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
-                <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
-                <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
-                <ScalarProperty Name="Details" ColumnName="Details" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="InventoryItemID" ColumnName="InventoryItemID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="InventoryCategory">
-            <EntityTypeMapping TypeName="HelpAdminModel.InventoryCategory">
-              <MappingFragment StoreEntitySet="InventoryCategory">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="InventoryCategoryID" ColumnName="InventoryCategoryID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="HelpAdminModelStoreContainer" CdmEntityContainer="HelpAdminEntities">
+    <EntitySetMapping Name="Client">
+      <EntityTypeMapping TypeName="IsTypeOf(HelpAdminModel.Client)">
+        <MappingFragment StoreEntitySet="Client">
+          <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Url" ColumnName="Url" />
+          <ScalarProperty Name="ContactID" ColumnName="ContactID" />
+          <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Details" ColumnName="Details" />
+          <ScalarProperty Name="IsContract" ColumnName="IsContract" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Contact">
+      <EntityTypeMapping TypeName="IsTypeOf(HelpAdminModel.Contact)">
+        <MappingFragment StoreEntitySet="Contact">
+          <ScalarProperty Name="ContactID" ColumnName="ContactID" />
+          <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+          <ScalarProperty Name="Surname" ColumnName="Surname" />
+          <ScalarProperty Name="Forename" ColumnName="Forename" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+          <ScalarProperty Name="Details" ColumnName="Details" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InventoryItem">
+      <EntityTypeMapping TypeName="IsTypeOf(HelpAdminModel.InventoryItem)">
+        <MappingFragment StoreEntitySet="InventoryItem">
+          <ScalarProperty Name="InventoryItemID" ColumnName="InventoryItemID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Details" ColumnName="Details" />
+          <ScalarProperty Name="SerialNumber" ColumnName="SerialNumber" />
+          <ScalarProperty Name="SupplierID" ColumnName="SupplierID" />
+          <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="PurchaseDate" ColumnName="PurchaseDate" />
+          <ScalarProperty Name="GuaranteeID" ColumnName="GuaranteeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="InventoryCategory">
+      <EntityTypeMapping TypeName="IsTypeOf(HelpAdminModel.InventoryCategory)">
+        <MappingFragment StoreEntitySet="InventoryCategory">
+          <ScalarProperty Name="InventoryCategoryID" ColumnName="InventoryCategoryID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ItemGuarantee">
+      <EntityTypeMapping TypeName="IsTypeOf(HelpAdminModel.ItemGuarantee)">
+        <MappingFragment StoreEntitySet="ItemGuarantee">
+          <ScalarProperty Name="ItemGuaranteeID" ColumnName="ItemGuaranteeID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ClientContract">
+      <EntityTypeMapping TypeName="IsTypeOf(HelpAdminModel.ClientContract)">
+        <MappingFragment StoreEntitySet="ClientContract">
+          <ScalarProperty Name="ClientContractID" ColumnName="ClientContractID" />
+          <ScalarProperty Name="ClientID" ColumnName="ClientID" />
+          <ScalarProperty Name="Month" ColumnName="Month" />
+          <ScalarProperty Name="Year" ColumnName="Year" />
+          <ScalarProperty Name="AdditionalAmmount" ColumnName="AdditionalAmmount" />
+          <ScalarProperty Name="Ammount" ColumnName="Ammount" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Project">
+      <EntityTypeMapping TypeName="IsTypeOf(HelpAdminModel.Project)">
+        <MappingFragment StoreEntitySet="Project">
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProjectInformation">
+      <EntityTypeMapping TypeName="IsTypeOf(HelpAdminModel.ProjectInformation)">
+        <MappingFragment StoreEntitySet="ProjectInformation">
+          <ScalarProperty Name="ProjectInformationID" ColumnName="ProjectInformationID" />
+          <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
           <EntitySetMapping Name="Employee">
             <EntityTypeMapping TypeName="HelpAdminModel.Employee">
               <MappingFragment StoreEntitySet="Employee">
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
                 <ScalarProperty Name="NextMedicalExam" ColumnName="NextMedicalExam" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
@@ -479,46 +520,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ItemGuarantee">
-            <EntityTypeMapping TypeName="HelpAdminModel.ItemGuarantee">
-              <MappingFragment StoreEntitySet="ItemGuarantee">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ItemGuaranteeID" ColumnName="ItemGuaranteeID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ClientContract">
-            <EntityTypeMapping TypeName="HelpAdminModel.ClientContract">
-              <MappingFragment StoreEntitySet="ClientContract">
-                <ScalarProperty Name="Ammount" ColumnName="Ammount" />
-                <ScalarProperty Name="AdditionalAmmount" ColumnName="AdditionalAmmount" />
-                <ScalarProperty Name="Year" ColumnName="Year" />
-                <ScalarProperty Name="Month" ColumnName="Month" />
-                <ScalarProperty Name="ClientID" ColumnName="ClientID" />
-                <ScalarProperty Name="ClientContractID" ColumnName="ClientContractID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Project">
-            <EntityTypeMapping TypeName="HelpAdminModel.Project">
-              <MappingFragment StoreEntitySet="Project">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ProjectInformation">
-            <EntityTypeMapping TypeName="HelpAdminModel.ProjectInformation">
-              <MappingFragment StoreEntitySet="ProjectInformation">
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
-                <ScalarProperty Name="ProjectInformationID" ColumnName="ProjectInformationID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-        </EntityContainerMapping>
-      </Mapping>
-    </edmx:Mappings>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
@@ -532,7 +535,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>
