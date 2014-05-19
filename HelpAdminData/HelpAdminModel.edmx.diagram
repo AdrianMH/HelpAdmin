@@ -15,7 +15,6 @@
         </AssociationConnector>
         <EntityTypeShape EntityType="HelpAdminModel.InventoryCategory" Width="1.5" PointX="3.375" PointY="4.875" />
         <AssociationConnector Association="HelpAdminModel.FK_InventoryItem_InventoryCategory" />
-        <EntityTypeShape EntityType="HelpAdminModel.Employee" Width="1.5" PointX="7" PointY="1" />
         <EntityTypeShape EntityType="HelpAdminModel.ItemGuarantee" Width="1.5" PointX="5.375" PointY="4.875" />
         <AssociationConnector Association="HelpAdminModel.FK_InventoryItem_ItemGuarantee" />
         <EntityTypeShape EntityType="HelpAdminModel.ClientContract" Width="1.5" PointX="5" PointY="1" />
@@ -23,6 +22,7 @@
         <EntityTypeShape EntityType="HelpAdminModel.ProjectInformation" Width="1.5" PointX="9.625" PointY="3.875" />
         <AssociationConnector Association="HelpAdminModel.FK_ClientContract_Client" />
         <AssociationConnector Association="HelpAdminModel.FK_ProjectInformation_Project" />
+        <EntityTypeShape EntityType="HelpAdminModel.Employee" Width="1.5" PointX="7.375" PointY="0.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
